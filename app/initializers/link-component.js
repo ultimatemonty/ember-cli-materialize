@@ -1,12 +1,12 @@
 import Ember from 'ember';
 
 export function initialize(/* container, application */) {
-  Ember.LinkView.reopen({
+  Ember.LinkComponent.reopen({
     attributeBindings: ['data-activates']
   });
 }
 
 export default {
-  name: 'link-view',
+  name: 'link-component',
   initialize: initialize
 };
