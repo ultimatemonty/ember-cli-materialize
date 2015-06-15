@@ -62,3 +62,16 @@ test('select creates the correct choices from a simple content array', function(
   );
 
 });
+
+test('select tears down all registered event listeners', function(assert) {
+  let component = this.subject();
+  let componentRef = this.subject();
+
+  // render the component
+  this.render();
+
+  // now tear it down
+  component.trigger('willDestroyElement');
+
+
+});

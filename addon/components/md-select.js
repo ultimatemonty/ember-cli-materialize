@@ -8,19 +8,34 @@ export default MaterializeInputField.extend({
   optionLabelPath: 'content',
   optionValuePath: 'content',
 
+  _registeredInputEvents: ['blur','click','close','focus','keydown','open'],
+  _registeredListEvents: ['click'],
+
   didInsertElement() {
     this._super(...arguments);
     this._setupSelect();
+  },
+
+  willDestroyElement() {
+    console.log('willDestroyElement triggered');
+    this._super(...arguments);
+    this._teardownSelect();
   },
 
   _setupSelect() {
     this.$('select').material_select();
   },
 
-  //TODO: clean up any listeners that $.select() puts in place
-  // _teardownSelect() {
-  //
-  // }
+  // TODO: clean up any listeners that $.select() puts in place
+  _teardownSelect() {
+    this._registeredInputEvents.map(function(evt) {
+      this.$('input').off(evt);
+    });
+
+    this._registeredListEvents.map(function(evt) {
+      this.$('.dropdown-content').off(evt);
+    });
+  },
 
   //TODO: this could be converted to a computed property, returning a string
   //  that is bound to the class attribute of the inputSelector
